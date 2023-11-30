@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Set Operations</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h1 class="mb-4">Set Operations</h1>
+
+    <div id="main-menu">
+        <p>Programmer: JACO GAGARIN CANETE</p>
+        <p>Main Menu</p>
+        <ul>
+            <li>1. Input Sets A and B</li>
+            <li>2. Union of Sets A and B</li>
+            <li>3. Intersection of Sets A and B</li>
+            <li>4. Complement of Set A</li>
+            <li>5. Complement of Set B</li>
+            <li>6. Display Sets A and B</li>
+            <li>7. Exit</li>
+        </ul>
+    </div>
+
+    <script>
+        // Set variables
+        let setA = new Set();
+        let setB = new Set();
+    
+        // Function to display error message
+        function displayError(message) {
+            alert(`ERROR: ${message}`);
+        }
+    
+        // Function to handle user input
+        function handleInput(choice) {
+            switch (choice) {
+                case 1:
+                    // Input Sets A and B
+                    setA = new Set(getValidNumbers("Set A"));
+                    setB = new Set(getValidNumbers("Set B"));
+                    break;
+                case 2:
+                    // Union of Sets A and B
+                    let unionSet = new Set([...setA, ...setB]);
+                    alert(`Union of Sets A and B: ${Array.from(unionSet).join(', ')}`);
+                    break;
+                case 3:
+                    // Intersection of Sets A and B
+                    let intersectionSet = new Set([...setA].filter(x => setB.has(x)));
+                    alert(`Intersection of Sets A and B: ${Array.from(intersectionSet).join(', ')}`);
+                    break;
+                case 4:
+                    // Complement of Set A
+                    let complementA = new Set([...Array.from({ length: 10 }, (_, i) => i + 1)].filter(x => !setA.has(x)));
+                    alert(`Complement of Set A: ${Array.from(complementA).join(', ')}`);
+                    break;
+                case 5:
+                    // Complement of Set B
+                    let complementB = new Set([...Array.from({ length: 10 }, (_, i) => i + 1)].filter(x => !setB.has(x)));
+                    alert(`Complement of Set B: ${Array.from(complementB).join(', ')}`);
+                    break;
+                case 6:
+                    // Display Sets A and B
+                    alert(`Set A: ${Array.from(setA).join(', ')}\nSet B: ${Array.from(setB).join(', ')}`);
+                    break;
+                case 7:
+                    // Exit program
+                    alert('Exiting program.');
+                    break;
+                default:
+                    // Invalid choice
+                    displayError('Invalid choice. Please enter a number between 1 and 7.');
+            }
+        }
+    
+        // Function to get valid numbers from user input
+        function getValidNumbers(setName) {
+            let input = prompt(`Enter up to 10 numbers for ${setName} (separated by commas):`);
+            if (!input) {
+                displayError('Invalid input. Please enter at least one number.');
+                return [];
+            }
+            let numbers = input.split(',').map(num => parseInt(num.trim(), 10));
+            for (let num of numbers) {
+                if (isNaN(num) || num < 1 || num > 10) {
+                    displayError('Invalid input. Numbers must be between 1 and 10.');
+                    return [];
+                }
+            }
+            return numbers;
+        }
+    
+        // Main loop
+        while (true) {
+            let choice = parseInt(prompt('Enter choice (1-7):'), 10);
+            if (isNaN(choice) || choice < 1 || choice > 7) {
+                displayError('Invalid choice. Please enter a number between 1 and 7.');
+                continue;
+            }
+            if (choice === 7) {
+                break; // Exit loop
+            }
+            handleInput(choice);
+        }
+    </script>
+    
+</div>
+
+<!-- Bootstrap JS and Popper.js -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+</body>
+</html>
